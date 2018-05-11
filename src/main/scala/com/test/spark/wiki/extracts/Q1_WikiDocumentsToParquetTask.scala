@@ -45,10 +45,8 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
             val doc = Jsoup.connect(url).get
             val table = doc.select("caption:contains(Classement)").first().parent()
             val rows = table.select("tr")
-            val tds = rows.head.select("td")
-            println(tds.get(0).text.toInt)
 
-            for (row <- rows) yield {
+            for (row <- rows.tail) yield {
               val tds = row.select("td")
               val position = tds.get(0).text.tryToInt
               val team = tds.get(1).text

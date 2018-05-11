@@ -14,8 +14,6 @@
 ```
 # Lancer les tests unitaires
 sbt test
-# Lancer le programme
-sbt run
 ```
 
 ### Commentaires
@@ -32,9 +30,9 @@ Voir [How to add new functionality to closed classes](https://alvinalexander.com
 
 Voir [Convert String to Int or None](https://stackoverflow.com/questions/23811425/scala-convert-string-to-int-or-none).
 
-On choisit -1 comme valeur numérique par défaut.
+On choisit 0 comme valeur numérique par défaut.
 
-#### Question 3
+#### Question 3
 
 Lorsque le job tourne sur un cluster [Elastic MapReduce](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html), les logs sont affichés sur [CloudWatch](https://aws.amazon.com/fr/cloudwatch/). Il suffit pour cela de rajouter un [appender dans Log4j](https://github.com/Virtual-Instruments/cloudwatch-log4j-appender).
 
@@ -70,44 +68,11 @@ Voir [Server Access Logging](https://docs.aws.amazon.com/AmazonS3/latest/dev/Ser
 
 Pour [protéger les données](https://aws.amazon.com/premiumsupport/knowledge-center/secure-s3-resources/https://aws.amazon.com/premiumsupport/knowledge-center/secure-s3-resources/) sur un bucket S3, il faut mettre en place des rôles et des groupes d'utilisateurs, des credentials permettent à ces groupes de se connecter.
 
-Pour se prémunir des fuites de données on veillera à auditer ces données et à utiliser les techniques cryptographiques courantes (SSL, GPG, etc.).
+Pour se prémunir des fuites de données on veillera à auditer ces données et à utiliser les techniques cryptographiques courantes (SSL au niveau de la connexion, GPG au niveau des données, etc.).
 
 ### Spécifications
 
-Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football européen sur les 40 dernières années en grapillant les informations sur wikipedia.
-
-```html
-<table class="wikitable gauche" style="text-align:center; line-height:16px;">
-  <caption>Classement</caption>
-  <tr bgcolor="#F2F2F2">
-    <th scope="col" style="">Rang</th>
-    <th scope="col" style="" width="200">Équipe</th>
-    <th scope="col" style="width:20px"><span style="cursor:help;" title="Points">Pts</span></th>
-    <th scope="col" style="width:20px"><span style="cursor:help;" title="Matchs joués">J</span></th>
-    <th scope="col" style="width:20px;border-right-style:hidden"><span style="cursor:help;" title="Matchs gagnés">G</span></th>
-    <th scope="col" style="width:20px;border-right-style:hidden"><span style="cursor:help;" title="Matchs nuls">N</span></th>
-    <th scope="col" style="width:20px"><span style="cursor:help;" title="Matchs perdus">P</span></th>
-    <th scope="col" style="width:20px;border-right-style:hidden"><span style="cursor:help;" title="Buts pour">Bp</span></th>
-    <th scope="col" style="width:20px;border-right-style:hidden"><span style="cursor:help;" title="Buts contre">Bc</span></th>
-    <th scope="col" style="width:25px"><span style="cursor:help;" title="Différence de buts">Diff</span></th>
-  </tr>
-  <tr bgcolor="white">
-    <td><b><span class="nowrap">1</span></b></td>
-    <td align="left"><span class="nowrap"><a href="/wiki/Lille_OSC" class="mw-redirect" title="Lille OSC">Lille</a></span></td>
-    <td><b>44</b></td>
-    <td>19</td>
-    <td style="border-right-style:hidden">13</td>
-    <td style="border-right-style:hidden">5</td>
-    <td>1</td>
-    <td style="border-right-style:hidden">40</td>
-    <td style="border-right-style:hidden">17</td>
-    <td>+23</td>
-  </tr>
-  ...
-```
-
-Il faudra extraire les données contenues dans les differents tableaux html et créer un export partquet ayant cette forme.
-
+Export Parquet.
 ```text
 +-------+------+--------+-------------+------+------+---+-----+----+--------+------------+---------------+
 | league|season|position|         team|points|played|won|drawn|lost|goalsFor|goalsAgainst|goalsDifference|
@@ -120,3 +85,5 @@ Il faudra extraire les données contenues dans les differents tableaux html et c
 ##### TODO
 
 - [ ] En utilisant les données générées par _Q1_WikiDocumentsToParquetTask_ répondre aux questions posées dans la classe Q2_ShowLeagueStatsTask
+- [ ] [Valider](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html) le template Cloud Formation
+- [ ] Nettoyer les noms des équipes
