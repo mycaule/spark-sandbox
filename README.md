@@ -58,6 +58,20 @@ Voir [Intro to the Jackson ObjectMapper](http://www.baeldung.com/jackson-object-
 
 Voir [Jackson annotation examples](http://www.baeldung.com/jackson-annotations).
 
+#### Question AWS-1
+
+Cloud Formation permet de créer des ressources sur AWS par [configuration d'un fichier](https://github.com/awslabs/aws-cloudformation-templates/tree/master/aws/services/S3) (Infrastructure as Code).
+
+Voir [AWS CloudFormation / AWS::S3::Bucket](https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html) pour savoir comment définir des ressources S3.
+
+Voir [Server Access Logging](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html) pour les logs d'accès.
+
+#### Question AWS-2
+
+Pour [protéger les données](https://aws.amazon.com/premiumsupport/knowledge-center/secure-s3-resources/https://aws.amazon.com/premiumsupport/knowledge-center/secure-s3-resources/) sur un bucket S3, il faut mettre en place des rôles et des groupes d'utilisateurs, des credentials permettent à ces groupes de se connecter.
+
+Pour se prémunir des fuites de données on veillera à auditer ces données et à utiliser les techniques cryptographiques courantes (SSL, GPG, etc.).
+
 ### Spécifications
 
 Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football européen sur les 40 dernières années en grapillant les informations sur wikipedia.
@@ -103,28 +117,6 @@ Il faudra extraire les données contenues dans les differents tableaux html et c
 |Ligue 1|  1979|       1|RC Strasbourg|    56|    38| 22|   12|   4|      68|          28|             40|
 ```  
 
-##### Comment faire
+##### TODO
 
-Le test unitaire _com.test.spark.wiki.extracts.RunTasks_ permet de lancer les 2 tâches spark suivantes:
-
-- com.test.spark.wiki.extracts.Q1_WikiDocumentsToParquetTask
-  - La classe contient des petites questions générales
-  - Cette classe genère les urls à crawler depuis le fichier _src/main/resources/leagues.yaml_
-  - La classe ne compile pas
-  - Il manque le parsing des pages wikipedia avec la librairie Jsoup
-  - Il manque "l'activation" de spark
-  - Générer des données en respectant le schéma de la classe _LeagueStanding_
-
-- com.test.spark.wiki.extracts.Q2_ShowLeagueStatsTask
-  - En utilisant les données générées par _Q1_WikiDocumentsToParquetTask_ répondre aux questions posées dans la classe
-
-#### AWS
-- Ecrire un fichier cloudformation yaml dans _cfn/s3.yml_ permettant de monter
-  - Un bucket S3 "A"
-  - Un bucket S3 "B" contenant les logs d'accès du bucket S3 "A"
-
-- S'il fallait protéger les données sur un bucket S3 comment procéderiez-vous ?
-
-
-
-Bonne session :)
+- [ ] En utilisant les données générées par _Q1_WikiDocumentsToParquetTask_ répondre aux questions posées dans la classe Q2_ShowLeagueStatsTask

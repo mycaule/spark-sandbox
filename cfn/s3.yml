@@ -1,3 +1,20 @@
----
 AWSTemplateFormatVersion: 2010-09-09
 Resources:
+  A:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: BucketOwnerFullControl
+      LoggingConfiguration:
+        DestinationBucketName: B
+        LogFilePrefix: AccessLogs
+  B:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: BucketOwnerFullControl
+Outputs:
+  S3BucketSecureURLA:
+    Value: !Join ['', ['https://', !GetAtt [A, DomainName]]]
+    Description: Main bucket
+  S3BucketSecureURLB:
+    Value: !Join ['', ['https://', !GetAtt [B, DomainName]]]
+    Description: Main bucket

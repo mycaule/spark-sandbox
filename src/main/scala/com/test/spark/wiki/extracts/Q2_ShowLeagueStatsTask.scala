@@ -12,7 +12,6 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
   override def run(): Unit = {
     val standings = session.read.parquet(bucket).as[LeagueStanding].cache()
 
-    // TODO Répondre aux questions suivantes en utilisant le dataset $standings
     standings
       // ...code...
       .show()
