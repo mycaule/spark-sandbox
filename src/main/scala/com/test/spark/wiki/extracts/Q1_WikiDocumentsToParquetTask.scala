@@ -5,24 +5,28 @@ import java.net.URL
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import org.apache.spark.sql.{SaveMode, SparkSession}
+import org.apache.spark.sql.{ SaveMode, SparkSession }
 import org.joda.time.DateTime
 import org.jsoup.Jsoup
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
 import scala.collection.JavaConversions._
 
 case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
-  private val session: SparkSession = SparkSession.builder().getOrCreate()
+  private val session: SparkSession = SparkSession.builder()
+    .appName("Wiki Documents")
+    .master("local[*]").getOrCreate()
+
   private val logger: Logger = LoggerFactory.getLogger(getClass)
+
+  import session.implicits._
 
   override def run(): Unit = {
     val toDate = DateTime.now().withYear(2017)
     val fromDate = toDate.minusYears(40)
 
     getLeagues
-      // TODO Q1 Transformer cette seq en dataset
-      .XXXXX
+      .toDS()
       .flatMap {
         input =>
           (fromDate.getYear until toDate.getYear).map {
@@ -64,18 +68,20 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
 }
 
 // TODO Q8 Ajouter les annotations manquantes pour pouvoir mapper le fichier yaml à cette classe
-case class LeagueInput(name: String,
-                       url: String)
+case class LeagueInput(
+    name: String,
+    url: String)
 
-case class LeagueStanding(league: String,
-                          season: Int,
-                          position: Int,
-                          team: String,
-                          points: Int,
-                          played: Int,
-                          won: Int,
-                          drawn: Int,
-                          lost: Int,
-                          goalsFor: Int,
-                          goalsAgainst: Int,
-                          goalsDifference: Int)
+case class LeagueStanding(
+    league: String,
+    season: Int,
+    position: Int,
+    team: String,
+    points: Int,
+    played: Int,
+    won: Int,
+    drawn: Int,
+    lost: Int,
+    goalsFor: Int,
+    goalsAgainst: Int,
+    goalsDifference: Int)

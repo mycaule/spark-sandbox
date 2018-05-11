@@ -1,7 +1,7 @@
 package com.test.spark.wiki.extracts
 
 import org.apache.spark.sql.SparkSession
-import org.scalatest.{BeforeAndAfterEach, FunSuite}
+import org.scalatest.{ BeforeAndAfterEach, FunSuite }
 
 class RunTasks extends FunSuite with BeforeAndAfterEach {
   val bucket = "/tmp/wiki-data"

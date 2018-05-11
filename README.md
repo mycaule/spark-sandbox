@@ -1,28 +1,27 @@
-# Test Avril 2018
 
-### Configuration requise
+<p align="center">
+  May 2018 SL Interview Assessment
+</p>
 
-- [Intellij idea](https://www.jetbrains.com/idea/download/) + plugin scala activé
+<p align="center">
+  <a href="http://travis-ci.org/mycaule/spark-wiki-extracts"><img src="https://api.travis-ci.org/mycaule/spark-wiki-extracts.svg?branch=master" alt="Build Status"></a>
+  <br>
+  <br>
+</p>
 
-- Jdk8 / Maven
 
-### Objectifs
-
-Nous montrer un aperçu de votre façon de programmer, que vous êtes - ou pouvez être - à l'aise aussi bien 
-avec la jvm, spark que aws ou github. 
-
-A faire décontracté, en s'appuyant sur les documentations des librairies utilisées dans le projet si vous n'êtes pas 
-familier avec celles-ci. Mais sans pour autant piocher sur stackoverflow.
-
-#### Github
-1. Forker le projet
-
-2. Faire une pull request dès que vous avez terminé
+### Utilisation
+```
+# Lancer les tests unitaires
+sbt test
+# Lancer le programme
+sbt run
+```
 
 #### Spark / scala
 
 Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football
-européen sur les 40 dernières années en grapillant les informations sur wikipedia 
+européen sur les 40 dernières années en grapillant les informations sur wikipedia
 (ex: [ici](https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2010-2011)).   
 ```html
 <table class="wikitable gauche" style="text-align:center; line-height:16px;">
@@ -54,7 +53,7 @@ européen sur les 40 dernières années en grapillant les informations sur wikip
   ...
 ```
 
-Il faudra extraire les données contenues dans les differents tableaux html et créer un export partquet ayant cette forme. 
+Il faudra extraire les données contenues dans les differents tableaux html et créer un export partquet ayant cette forme.
 
 ```text
 +-------+------+--------+-------------+------+------+---+-----+----+--------+------------+---------------+
@@ -67,10 +66,6 @@ Il faudra extraire les données contenues dans les differents tableaux html et c
 
 ##### Comment faire
 
-Créer le projet dans Intellij Idea en important la configuration maven à la racine. 
-
-Toutes les librairies sont fournies pour la réalisation du test.
-
 Le test unitaire _com.test.spark.wiki.extracts.RunTasks_ permet de lancer les 2 tâches spark suivantes:
 
 - com.test.spark.wiki.extracts.Q1_WikiDocumentsToParquetTask
@@ -80,17 +75,15 @@ Le test unitaire _com.test.spark.wiki.extracts.RunTasks_ permet de lancer les 2 
   - Il manque le parsing des pages wikipedia avec la librairie Jsoup
   - Il manque "l'activation" de spark
   - Générer des données en respectant le schéma de la classe _LeagueStanding_
-  
+
 - com.test.spark.wiki.extracts.Q2_ShowLeagueStatsTask
   - En utilisant les données générées par _Q1_WikiDocumentsToParquetTask_ répondre aux questions posées dans la classe
-  
-La commande `mvn test` doit permettre de voir les résultats attendus
 
-#### Aws
+#### AWS
 - Ecrire un fichier cloudformation yaml dans _cfn/s3.yml_ permettant de monter
   - Un bucket S3 "A"
   - Un bucket S3 "B" contenant les logs d'accès du bucket S3 "A"
-  
+
 - S'il fallait protéger les données sur un bucket S3 comment procéderiez-vous ?
 
 
