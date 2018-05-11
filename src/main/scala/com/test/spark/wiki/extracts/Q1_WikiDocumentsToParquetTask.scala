@@ -44,9 +44,6 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
             //  - Il faut normaliser les colonnes "positions", "teams" et "points" en cas de problèmes de formatage
           } catch {
             case _: Throwable =>
-              // Question 3
-              // Lorsque le job tourne sur un cluster ElasticMapReduce, les logs sont affichés sur Cloud Watch,
-              // Il faut pour cela configurer un appender
               logger.warn(s"Can't parse season $season from $url")
               Seq.empty
           }
@@ -56,10 +53,6 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
       .write
       .mode(SaveMode.Overwrite)
       .parquet(bucket)
-
-    // TODO Q5 Quel est l'avantage du format parquet par rapport aux autres formats ?
-
-    // TODO Q6 Quel est l'avantage de passer d'une séquence scala à un dataset spark ?
   }
 
   private def getLeagues: Seq[LeagueInput] = {

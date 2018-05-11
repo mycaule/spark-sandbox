@@ -26,7 +26,15 @@ sbt run
 
 Lorsque le job tourne sur un cluster [Elastic MapReduce](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html), les logs sont affichés sur [CloudWatch](https://aws.amazon.com/fr/cloudwatch/). Il suffit pour cela de rajouter un [appender dans Log4j](https://github.com/Virtual-Instruments/cloudwatch-log4j-appender)
 
-#### Spark / scala
+#### Question 5
+
+  [Parquet](https://parquet.apache.org) est un format d'échange standard pour l'écosystème Hadoop. Ses [avantages principaux](https://stackoverflow.com/questions/36822224/what-are-the-pros-and-cons-of-parquet-format-compared-to-other-formats) sont sa simplicité de représentation et le partitionnement en colonnes pour de grandes quantités de données.
+
+#### Question 6
+
+  Un `Dataset` est une structure de données permettant de paralleliser les données sur un cluster de machines. Outre les opérations classiques sur les `Seq`, on profite également de [moteurs d'optimisation](https://www.coursera.org/learn/scala-spark-big-data/lecture/yrfPh/datasets) de traitement inhérents à Spark.
+
+### Spécifications
 
 Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football
 européen sur les 40 dernières années en grapillant les informations sur wikipedia
