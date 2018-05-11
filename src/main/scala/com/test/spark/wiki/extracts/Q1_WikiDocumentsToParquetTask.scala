@@ -79,10 +79,9 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
   }
 }
 
-// TODO Q8 Ajouter les annotations manquantes pour pouvoir mapper le fichier yaml à cette classe
 case class LeagueInput(
-    name: String,
-    url: String)
+    @JsonProperty("name") name: String,
+    @JsonProperty("url") url: String)
 
 case class LeagueStanding(
     league: String,

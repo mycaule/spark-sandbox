@@ -54,6 +54,10 @@ Voir [Managing Spark partitions with coalesce and repartition](https://hackernoo
 
 Voir [Intro to the Jackson ObjectMapper](http://www.baeldung.com/jackson-object-mapper-tutorial).
 
+#### Question 8
+
+Voir [Jackson annotation examples](http://www.baeldung.com/jackson-annotations).
+
 ### Spécifications
 
 Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football européen sur les 40 dernières années en grapillant les informations sur wikipedia.
