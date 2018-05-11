@@ -74,7 +74,7 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
 
   private def getLeagues: Seq[LeagueInput] = {
     val mapper = new ObjectMapper(new YAMLFactory())
-    // TODO Q7 Recuperer l'input stream du fichier leagues.yaml
+    val inputStream = new java.io.FileInputStream("src/main/resources/leagues.yaml")
     mapper.readValue(inputStream, classOf[Array[LeagueInput]]).toSeq
   }
 }

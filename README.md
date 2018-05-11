@@ -32,6 +32,8 @@ Voir [How to add new functionality to closed classes](https://alvinalexander.com
 
 Voir [Convert String to Int or None](https://stackoverflow.com/questions/23811425/scala-convert-string-to-int-or-none).
 
+On choisit -1 comme valeur numérique par défaut.
+
 #### Question 3
 
 Lorsque le job tourne sur un cluster [Elastic MapReduce](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html), les logs sont affichés sur [CloudWatch](https://aws.amazon.com/fr/cloudwatch/). Il suffit pour cela de rajouter un [appender dans Log4j](https://github.com/Virtual-Instruments/cloudwatch-log4j-appender).
@@ -47,6 +49,10 @@ Voir [Managing Spark partitions with coalesce and repartition](https://hackernoo
 #### Question 6
 
   Un `Dataset` est une structure de données permettant de paralleliser les données sur un cluster de machines. Outre les opérations classiques sur les `Seq`, on profite également de [moteurs d'optimisation](https://www.coursera.org/learn/scala-spark-big-data/lecture/yrfPh/datasets) de traitement inhérents à Spark.
+
+#### Question 7
+
+Voir [Intro to the Jackson ObjectMapper](http://www.baeldung.com/jackson-object-mapper-tutorial).
 
 ### Spécifications
 
