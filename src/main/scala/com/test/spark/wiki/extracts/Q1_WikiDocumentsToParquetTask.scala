@@ -48,8 +48,7 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
               Seq.empty
           }
       }
-      // TODO Q4 Comment partitionner les données en 2 avant l'écriture sur le bucket
-      .XXXXX
+      .repartition(2)
       .write
       .mode(SaveMode.Overwrite)
       .parquet(bucket)
