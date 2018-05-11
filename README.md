@@ -18,6 +18,14 @@ sbt test
 sbt run
 ```
 
+### Commentaires
+
+#### Question 1
+
+#### Question 3
+
+Lorsque le job tourne sur un cluster [Elastic MapReduce](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html), les logs sont affichés sur [CloudWatch](https://aws.amazon.com/fr/cloudwatch/). Il suffit pour cela de rajouter un [appender dans Log4j](https://github.com/Virtual-Instruments/cloudwatch-log4j-appender)
+
 #### Spark / scala
 
 Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football

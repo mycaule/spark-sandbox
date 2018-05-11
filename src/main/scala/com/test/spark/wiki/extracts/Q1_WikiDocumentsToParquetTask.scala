@@ -15,7 +15,7 @@ import scala.collection.JavaConversions._
 case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
   private val session: SparkSession = SparkSession.builder()
     .appName("Wiki Documents")
-    .master("local[*]").getOrCreate()
+    .getOrCreate()
 
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
@@ -44,7 +44,9 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
             //  - Il faut normaliser les colonnes "positions", "teams" et "points" en cas de problèmes de formatage
           } catch {
             case _: Throwable =>
-              // TODO Q3 En supposant que ce job tourne sur un cluster EMR, où seront affichés les logs d'erreurs ?
+              // Question 3
+              // Lorsque le job tourne sur un cluster ElasticMapReduce, les logs sont affichés sur Cloud Watch,
+              // Il faut pour cela configurer un appender
               logger.warn(s"Can't parse season $season from $url")
               Seq.empty
           }
