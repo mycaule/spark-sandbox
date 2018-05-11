@@ -24,10 +24,17 @@ sbt run
 
 Voir [Spark Datasets Guide - Creating Datasets](https://people.apache.org/~pwendell/spark-nightly/spark-master-docs/latest/sql-programming-guide.html#creating-datasets)
 
+#### Question 2
+
+Voir [Use selector-syntax to find elements](https://jsoup.org/cookbook/extracting-data/selector-syntax).
+
+Voir [How to add new functionality to closed classes](https://alvinalexander.com/scala/scala-for-loop-yield-examples-yield-tutorial#a-real-world-example).
+
+Voir [Convert String to Int or None](https://stackoverflow.com/questions/23811425/scala-convert-string-to-int-or-none).
+
 #### Question 3
 
-Lorsque le job tourne sur un cluster [Elastic MapReduce](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html), les logs sont affichés sur [CloudWatch](https://aws.amazon.com/fr/cloudwatch/). Il suffit pour cela de rajouter un [appender dans Log4j](https://github.com/Virtual-Instruments/cloudwatch-log4j-appender)
-
+Lorsque le job tourne sur un cluster [Elastic MapReduce](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html), les logs sont affichés sur [CloudWatch](https://aws.amazon.com/fr/cloudwatch/). Il suffit pour cela de rajouter un [appender dans Log4j](https://github.com/Virtual-Instruments/cloudwatch-log4j-appender).
 
 #### Question 4
 
@@ -43,9 +50,8 @@ Voir [Managing Spark partitions with coalesce and repartition](https://hackernoo
 
 ### Spécifications
 
-Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football
-européen sur les 40 dernières années en grapillant les informations sur wikipedia
-(ex: [ici](https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2010-2011)).   
+Créer un référentiel au format Apache Parquet contenant le classement général des 5 grands championnats de football européen sur les 40 dernières années en grapillant les informations sur wikipedia.
+
 ```html
 <table class="wikitable gauche" style="text-align:center; line-height:16px;">
   <caption>Classement</caption>

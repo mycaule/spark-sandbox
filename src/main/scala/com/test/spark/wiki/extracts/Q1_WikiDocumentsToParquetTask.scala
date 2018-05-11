@@ -36,12 +36,30 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
       }
       .flatMap {
         case (season, (league, url)) =>
+          implicit class StringImprovements(s: String) {
+            import scala.util.Try
+            def tryToInt = Try(s.toInt).toOption.getOrElse(-1)
+          }
+
           try {
-            // TODO Q2 Implémenter le parsing Jsoup. Il faut retourner une Seq[LeagueStanding]
-            // ATTENTION:
-            //  - Quelques pages ne respectent pas le format commun et pourraient planter - pas grave
-            //  - Il faut veillez à recuperer uniquement le classement général
-            //  - Il faut normaliser les colonnes "positions", "teams" et "points" en cas de problèmes de formatage
+            val doc = Jsoup.connect(url).get
+            val table = doc.select("caption:contains(Classement)").first().parent()
+            val rows = table.select("tr")
+
+            for (row <- rows) yield {
+              val tds = row.select("td")
+              val position = tds.get(0).text.tryToInt
+              val team = tds.get(1).text
+              val points = tds.get(2).text.tryToInt
+              val played = tds.get(3).text.tryToInt
+              val won = tds.get(4).text.tryToInt
+              val drawn = tds.get(5).text.tryToInt
+              val lost = tds.get(6).text.tryToInt
+              val goalsFor = tds.get(7).text.tryToInt
+              val goalsAgainst = tds.get(8).text.tryToInt
+              val goalsDifference = tds.get(9).text.tryToInt
+              LeagueStanding(league, season, position, team, points, played, won, drawn, lost, goalsFor, goalsAgainst, goalsDifference)
+            }
           } catch {
             case _: Throwable =>
               logger.warn(s"Can't parse season $season from $url")
