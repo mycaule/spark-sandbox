@@ -36,26 +36,57 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
         case (season, (league, url)) =>
           implicit class StringImprovements(s: String) {
             import scala.util.Try
-            def tryToInt(default: Int = -9999) = Try(s.toInt)
+            def tryToInt(default: Int = -9999) = Try({
+              s.toInt
+            })
               .toOption
               .getOrElse(default)
           }
 
+          val ind = if (league == "Premier League" && List(1978, 1980, 1988).contains(season))
+            Map(
+              "position" -> 0,
+              "team" -> 1,
+              "points" -> 9,
+              "won" -> 3,
+              "drawn" -> 4,
+              "lost" -> 5,
+              "goalsFor" -> 6,
+              "goalsAgainst" -> 7
+            )
+          else
+            Map(
+              "position" -> 0,
+              "team" -> 1,
+              "points" -> 2,
+              "won" -> 4,
+              "drawn" -> 5,
+              "lost" -> 6,
+              "goalsFor" -> 7,
+              "goalsAgainst" -> 8
+            )
+
           try {
             val doc = Jsoup.connect(url).get
-            val table = doc.select("caption:contains(Classement)").first().parent()
+
+            val caption = doc.select("caption:contains(Classement)")
+            val wikitable = doc.select("table.wikitable")
+
+            val table = if (caption.size > 0) caption.first().parent else wikitable.first()
+
             val rows = table.select("tr")
             for {
               row <- rows.tail
               tds = row.select("td")
-              if tds.size > 8
+              if tds.size > ind.values.max
             } yield {
-
-              val position = tds(0).text
+              val position = tds(ind("position")).text
                 .stripSuffix(".")
+                .stripSuffix("er")
+                .stripSuffix("e")
                 .tryToInt()
 
-              val team = tds(1).text
+              val team = tds(ind("team")).text
                 .stripSuffix(" L")
                 .stripSuffix(" S")
                 .stripSuffix(" MC")
@@ -82,7 +113,7 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
                 .stripSuffix(" SU")
                 .trim
 
-              val points = tds(2).text
+              val points = tds(ind("points")).text
                 .stripSuffix("-1")
                 .stripSuffix("-2")
                 .stripSuffix("A")
@@ -91,12 +122,12 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
                 .stripSuffix("[1]")
                 .tryToInt()
 
-              val won = tds(4).text.tryToInt()
-              val drawn = tds(5).text.tryToInt()
-              val lost = tds(6).text.tryToInt()
+              val won = tds(ind("won")).text.tryToInt()
+              val drawn = tds(ind("drawn")).text.tryToInt()
+              val lost = tds(ind("lost")).text.tryToInt()
               val played = won + drawn + lost
-              val goalsFor = tds(7).text.tryToInt()
-              val goalsAgainst = tds(8).text.tryToInt()
+              val goalsFor = tds(ind("goalsFor")).text.tryToInt()
+              val goalsAgainst = tds(ind("goalsAgainst")).text.tryToInt()
               val goalsDifference = goalsFor - goalsAgainst
               LeagueStanding(league, season, position, team, points, played, won, drawn, lost, goalsFor, goalsAgainst, goalsDifference)
             }

@@ -21,7 +21,6 @@ sbt test
 ### TODO List
 
 - [ ] [Valider](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html) le template Cloud Formation
-- [ ] Proposer un ordre alternatif par configuration pour les 6 saisons problématiques du dessus
 
 ### Détails d'implémentation
 
@@ -92,3 +91,9 @@ Ces faits sont sujets à interprétation et peuvent donner des résultats altern
 - [Angleterre 1996-1997](https://fr.wikipedia.org/wiki/Championnat_d'Angleterre_de_football_1996-1996) : Middlesbrough se voit retirer 3 points
 - [Italie 2004-2005](https://fr.wikipedia.org/wiki/Championnat_d'Italie_de_football_2004-2005) : La Juventus s'est vu retirée son titre à la suite du scandale des matchs truqués
 - [France 2012-2013](https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2012-2013) : Ajaccio commence la saison avec 2 points de pénalités
+
+#### Remarques techniques
+
+L'utilisation de [Scala Scraper](https://github.com/ruippeixotog/scala-scraper) aurait été préférable à JSoup. Cela évite d'avoir à utiliser les types Java et permet de privilégier le type `Option` plutôt qu'`Exception`.
+
+Idem pour [Circe](https://github.com/circe/circe) plutôt que Jackson DataFormat.
