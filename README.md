@@ -12,13 +12,14 @@
 
 ### Utilisation
 ```
+# Compiler le projet
+sbt compile
 # Lancer les tests unitaires
 sbt test
 ```
 
 ### TODO List
 
-- [ ] Finir de répondre aux questions sur le DataSet construit
 - [ ] [Valider](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html) le template Cloud Formation
 - [ ] Proposer un ordre alternatif par configuration pour les 6 saisons problématiques du dessus
 
@@ -87,5 +88,7 @@ Pour se prémunir des fuites de données on veillera à auditer ces données et 
 #### Faits remarquables
 
 Ces faits sont sujets à interprétation et peuvent donner des résultats alternatifs aux questions posées.
+
+- [Angleterre 1996-1997](https://fr.wikipedia.org/wiki/Championnat_d'Angleterre_de_football_1996-1996) : Middlesbrough se voit retirer 3 points
+- [Italie 2004-2005](https://fr.wikipedia.org/wiki/Championnat_d'Italie_de_football_2004-2005) : La Juventus s'est vu retirée son titre à la suite du scandale des matchs truqués
 - [France 2012-2013](https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2012-2013) : Ajaccio commence la saison avec 2 points de pénalités
-- [Italie 2004-2005](https://fr.wikipedia.org/wiki/Championnat_d'Italie_de_football_2004-2005) : le champion s'est vu retiré son titre à la suite du scandale des matchs truqués

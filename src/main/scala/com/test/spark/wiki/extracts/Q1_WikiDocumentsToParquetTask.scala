@@ -29,14 +29,16 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
         input =>
           (fromDate.getYear until toDate.getYear).map {
             year =>
-              year + 1 -> (input.name, input.url.format(year, year + 1))
+              (year + 1, (input.name, input.url.format(year, year + 1)))
           }
       }
       .flatMap {
         case (season, (league, url)) =>
           implicit class StringImprovements(s: String) {
             import scala.util.Try
-            def tryToInt(default: Int = -9999) = Try(s.toInt).toOption.getOrElse(default)
+            def tryToInt(default: Int = -9999) = Try(s.toInt)
+              .toOption
+              .getOrElse(default)
           }
 
           try {
@@ -86,6 +88,7 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
                 .stripSuffix("A")
                 .stripSuffix("**")
                 .stripSuffix("*")
+                .stripSuffix("[1]")
                 .tryToInt()
 
               val won = tds(4).text.tryToInt()
