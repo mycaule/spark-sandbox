@@ -26,13 +26,17 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
       .orderBy(desc("points"))
       .show()
 
+    println("Par nombre de match joués")
     standings
       .orderBy("played")
       .show()
 
+    println("Par nombre différence de buts")
     standings
       .orderBy(desc("goalsDifference"))
       .show()
+
+    // TODO Ecrire un test unitaire pour contrôler les bornes min et max de ces indicateurs
 
     println("Liste de toutes les équipes distinctes")
     standings.select("league", "team")
@@ -50,17 +54,12 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
     """)
       .show()
 
-    // TODO Q2
-    println("En Dataset, quelle est l'équipe la plus titrée de France ?")
+    println("Equipe la plus titrée de France")
 
-    // TODO Q3
-    println("En Dataset, quelle est la moyenne de points des vainqueurs sur les 5 différents championnats ?")
+    println("Nombre moyen de points des vainqueurs sur les 5 championnats")
 
     // TODO Q5 Ecrire une udf spark "decade" qui retourne la décennie d'une saison sous la forme 199X ?
 
-    // TODO Q4
-    println("En Dataset, quelle est la moyenne de points d'écart entre le 1er et le 10ème de chaque championnats " +
-      "par décennie")
-
+    println("Nombre moyen de points d'écart entre le 1er et le 10ème de chaque championnats et par décennie")
   }
 }
