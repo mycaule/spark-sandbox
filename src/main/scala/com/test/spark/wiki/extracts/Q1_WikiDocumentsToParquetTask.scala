@@ -1,7 +1,5 @@
 package com.test.spark.wiki.extracts
 
-import java.net.URL
-
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -38,26 +36,65 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
         case (season, (league, url)) =>
           implicit class StringImprovements(s: String) {
             import scala.util.Try
-            def tryToInt = Try(s.toInt).toOption.getOrElse(-1)
+            def tryToInt(default: Int = -9999) = Try(s.toInt).toOption.getOrElse(default)
           }
 
           try {
             val doc = Jsoup.connect(url).get
             val table = doc.select("caption:contains(Classement)").first().parent()
             val rows = table.select("tr")
+            for {
+              row <- rows.tail
+              tds = row.select("td")
+              if tds.size > 8
+            } yield {
 
-            for (row <- rows.tail) yield {
-              val tds = row.select("td")
-              val position = tds.get(0).text.tryToInt
-              val team = tds.get(1).text
-              val points = tds.get(2).text.tryToInt
-              val played = tds.get(3).text.tryToInt
-              val won = tds.get(4).text.tryToInt
-              val drawn = tds.get(5).text.tryToInt
-              val lost = tds.get(6).text.tryToInt
-              val goalsFor = tds.get(7).text.tryToInt
-              val goalsAgainst = tds.get(8).text.tryToInt
-              val goalsDifference = tds.get(9).text.tryToInt
+              val position = tds(0).text
+                .stripSuffix(".")
+                .tryToInt()
+
+              val team = tds(1).text
+                .stripSuffix(" L")
+                .stripSuffix(" S")
+                .stripSuffix(" MC")
+                .stripSuffix(" (CI)")
+                .stripSuffix(" C3")
+                .stripSuffix(" C2")
+                .stripSuffix(" C1")
+                .stripSuffix("'C")
+                .stripSuffix(" C")
+                .stripSuffix("'T")
+                .stripSuffix(" T")
+                .stripSuffix("P")
+                // .stripSuffix("S")
+                .stripSuffix("[1]")
+                .stripSuffix("[2]")
+                .stripSuffix("[3]")
+                .stripSuffix("[4]")
+                .stripSuffix("[5]")
+                .stripSuffix("[6]")
+                .stripSuffix("[N 2],")
+                .stripSuffix(" (*)")
+                .stripSuffix(" (V)")
+                .stripSuffix(" *")
+                .stripSuffix(" SU")
+                .trim
+
+              val points = tds(2).text
+                .stripSuffix("-1")
+                .stripSuffix("-2")
+                .stripSuffix("A")
+                .stripSuffix("**")
+                .stripSuffix("*")
+                .tryToInt()
+
+              val won = tds(4).text.tryToInt()
+              val drawn = tds(5).text.tryToInt()
+              val lost = tds(6).text.tryToInt()
+              val played = won + drawn + lost
+              val goalsFor = tds(7).text.tryToInt()
+              val goalsAgainst = tds(8).text.tryToInt()
+              val goalsDifference = goalsFor - goalsAgainst
               LeagueStanding(league, season, position, team, points, played, won, drawn, lost, goalsFor, goalsAgainst, goalsDifference)
             }
           } catch {

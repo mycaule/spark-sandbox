@@ -6,6 +6,23 @@ scalariformPreferences := scalariformPreferences.value
     .setPreference(DoubleIndentConstructorArguments, true)
     .setPreference(DanglingCloseParenthesis, Preserve)
 
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-encoding", "UTF-8",
+  "-feature",
+  "-language:existentials",
+  "-language:higherKinds",
+  "-language:implicitConversions",
+  "-unchecked",
+  "-Xlint",
+  // "-Yno-adapted-args",
+  "-Ywarn-dead-code",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-value-discard",
+  "-Xfuture",
+  "-Ywarn-unused-import"
+)
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(

@@ -30,7 +30,21 @@ Voir [How to add new functionality to closed classes](https://alvinalexander.com
 
 Voir [Convert String to Int or None](https://stackoverflow.com/questions/23811425/scala-convert-string-to-int-or-none).
 
-On choisit 0 comme valeur numérique par défaut.
+On choisit une valeur pénalisante comme valeur numérique par défaut pour refaire sortir l'anomalie lancement d'exception.
+
+Lors du scrapping HTML, on utilise l'ordre des colonnes pour reconstituer les paramètres de chaque équipe.
+
+On peut recalculer certaines colonnes pour éviter une erreur de parsing.
+
+Une inspection des données scrapées en première approche montre que cet ordre a en général été respecté sauf pour les pages suivantes :
+ - https://fr.wikipedia.org/wiki/Championnat_d'Italie_de_football_2004-2005
+ - https://fr.wikipedia.org/wiki/Championnat_d'Italie_de_football_2005-2006
+ - https://fr.wikipedia.org/wiki/Championnat_d'Italie_de_football_2006-2007
+ - https://fr.wikipedia.org/wiki/Championnat_d'Angleterre_de_football_1977-1978
+ - https://fr.wikipedia.org/wiki/Championnat_d'Angleterre_de_football_1979-1980
+ - https://fr.wikipedia.org/wiki/Championnat_d'Angleterre_de_football_1987-1988
+
+Pour être plus robuste, il faut en toute rigueur maintenir un dictionnaire des synonymes pour chaque nom de colonne.
 
 #### Question 3
 
@@ -86,4 +100,9 @@ Export Parquet.
 
 - [ ] En utilisant les données générées par _Q1_WikiDocumentsToParquetTask_ répondre aux questions posées dans la classe Q2_ShowLeagueStatsTask
 - [ ] [Valider](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html) le template Cloud Formation
-- [ ] Nettoyer les noms des équipes
+- [ ] Nettoyer les noms des équipes, Vérifier l'ordre des colonnes pour les liens suivants (NullPointerException)
+
+##### Remarques
+
+- Championnat de France 2012-2013 : Ajaccio commence la saison avec 2 points de pénalités
+- Championnat d'Italie 2004-2005 : le champion s'est vu retiré son titre à la suite du scandale des matchs truqués
