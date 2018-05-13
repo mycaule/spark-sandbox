@@ -11,6 +11,7 @@ class RunTasks extends FunSuite with BeforeAndAfterEach {
       .config("spark.ui.showConsoleProgress", "false")
       .master("local[*]")
       .getOrCreate()
+    ()
   }
 
   override protected def afterEach(): Unit = {

@@ -23,17 +23,13 @@ case class LeagueStanding(
 object LeagueStanding {
   import helpers.Utilities._
 
-  private def extractFieldNames[T <: Product: Manifest] = {
-    implicitly[Manifest[T]].runtimeClass.getDeclaredFields.map(_.getName)
-  }
-
   // https://stackoverflow.com/questions/1226555/case-class-to-map-in-scala
   def mapColumns(list: List[Int]): Map[String, Int] = {
     val cc = LeagueStanding("", 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0)
     cc.getClass.getDeclaredFields.map(_.getName).zip(list).toMap
   }
 
-  def fetch(season: Int, league: String, url: String)(implicit logger: Logger) = {
+  def fetch(season: Int, league: String, url: String)(implicit logger: Logger): Seq[LeagueStanding] = {
     val ind = if (league == "Premier League" && List(1978, 1980, 1988).contains(season))
       mapColumns(List(-1, -1, 0, 1, 9, -1, 3, 4, 5, 6, 7, -1))
     else
@@ -59,9 +55,10 @@ object LeagueStanding {
 
         val team = tds(ind("team")).text
           .stripSuffixes(List(" L", " S", " MC", " (CI)", " C3", " C2",
-            " C1", "'C", " C", "T,C,L", "'T", " T", "P", "[1]", "[2]", "[3]", "[4]",
-            "[5]", "[6]", "[N 2],", " (*)", " (V)", " *", " SU", " -8", " -9", " CMC",
-            " T S", "[N 1],", " CFC", " CL", " LDC"))
+            " C1", "'C", " C", "T,C,L", "'T", " T", "P", "[6]", "[5]", "[4]", "[3]",
+            "[2]", "[1]", "[N 2],", " (*)", " (V)", " *", " SU", " -8", " -9", " CMC",
+            " T S", "[N 1],", " CFC", " CL", " LDC", "'T'", " (RDA)", " (CR)", " CR",
+            " T'S'", " L"))
           .trim
 
         val points = tds(ind("points")).text

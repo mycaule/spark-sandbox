@@ -13,8 +13,17 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
 
   override def run(): Unit = {
     val standings = session.read.parquet(bucket).as[LeagueStanding].cache()
+    val teams = session.read.format("csv")
+      .option("header", "true")
+      .option("inferSchema", "true")
+      .load("src/main/resources/teams.csv")
 
-    println("Contrôle rapide de la qualité des données")
+    println("Contrôle de la qualité des données")
+    
+    teams
+      .orderBy("league", "team")
+      .show()
+
     standings
       .filter(x => x.season == 2014 && x.league == "Bundesliga")
       .orderBy("position")
@@ -27,7 +36,9 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
     println("Liste de toutes les équipes distinctes")
     standings.select("league", "team")
       .orderBy("league", "team")
-      .distinct.show(500)
+      .distinct
+      .show(false)
+    //.write.csv("/tmp/wiki-data")
 
     println("Nombre moyen de buts par saison et par championnat")
     standings.createTempView("standingsSQL")
@@ -45,7 +56,7 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
       .groupBy("team", "position")
       .count
       .orderBy(desc("count"))
-      .show()
+      .show(false)
 
     println("Nombre moyen de points des vainqueurs sur les 5 championnats")
     standings

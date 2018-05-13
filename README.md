@@ -90,6 +90,7 @@ Pour se prémunir des fuites de données on veillera à auditer ces données et 
 
 Ces faits sont sujets à interprétation et peuvent donner des résultats alternatifs aux questions posées.
 
+- [France 1992-1993](https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_1992-1993) : Marseille est déclassé suite à une affaire de corruption
 - [Angleterre 1996-1997](https://fr.wikipedia.org/wiki/Championnat_d'Angleterre_de_football_1996-1996) : Middlesbrough se voit retirer 3 points
 - [Italie 2004-2005](https://fr.wikipedia.org/wiki/Championnat_d'Italie_de_football_2004-2005) : La Juventus s'est vu retirée son titre à la suite du scandale des matchs truqués
 - [France 2012-2013](https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2012-2013) : Ajaccio commence la saison avec 2 points de pénalités
@@ -99,3 +100,7 @@ Ces faits sont sujets à interprétation et peuvent donner des résultats altern
 L'utilisation de [Scala Scraper](https://github.com/ruippeixotog/scala-scraper) aurait été préférable à JSoup. Cela évite d'avoir à utiliser les types Java et permet de privilégier le type `Option` plutôt qu'`Exception`.
 
 Idem pour [Circe](https://github.com/circe/circe) plutôt que Jackson DataFormat.
+
+Le problème des variantes de nom d'équipe peut être résolu à l'aide d'une recherche de [synonymes avec l'algorithme Word2Vec](https://www.quora.com/What-are-good-ways-to-automatically-find-synonyms-using-machine-learning-ML-techniques-What-are-good-ways-to-automatically-find-antonyms-using-ML-techniques) [DIMSUM](https://databricks.com/blog/2014/10/20/efficient-similarity-algorithm-now-in-spark-twitter.html) et de la [distance de Levenshtein](https://medium.com/@mrpowers/fuzzy-matching-in-spark-with-soundex-and-levenshtein-distance-6749f5af8f28). L'implémentation peut être [faite dans Spark](https://spark.apache.org/docs/2.2.0/mllib-feature-extraction.html#word2vec) mais cela dépasse le cadre de l'exercice.
+
+Nous nous sommes ici contentés de [nettoyer de manière grossière](src/main/scala/com/test/models/LeagueStanding.scala) les chaînes de caractères et de construire une liste d'équipe de référence dans [teams.csv](src/main/resources/teams.csv) qui permet après consolidation, les doublons pouvant être éliminés manuellement, de reconstruire un nom d'équipe "standard".
