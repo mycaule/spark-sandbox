@@ -18,10 +18,6 @@ sbt compile
 sbt test
 ```
 
-### TODO List
-
-- [ ] [Valider](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-validate-template.html) le template Cloud Formation
-
 ### Détails d'implémentation
 
 #### Question 1
@@ -77,6 +73,12 @@ Cloud Formation permet de créer des ressources sur AWS par [configuration d'un 
 Voir [AWS CloudFormation / AWS::S3::Bucket](https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html) pour savoir comment définir des ressources S3.
 
 Voir [Server Access Logging](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html) pour les logs d'accès.
+
+La commande suivante permet de valider le fichier (nécessite un compte actif):
+
+```
+aws cloudformation validate-template --template-body file:///home/michel/Code/spark-wiki-extracts/cfn/s3.yml
+```
 
 #### Question AWS-2
 
