@@ -19,7 +19,7 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
       .load("src/main/resources/teams.csv")
 
     println("Contrôle de la qualité des données")
-    
+
     teams
       .orderBy("league", "team")
       .show()

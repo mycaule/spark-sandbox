@@ -53,13 +53,15 @@ object LeagueStanding {
           .stripSuffixes(List(".", "er", "e"))
           .tryToInt()
 
-        val team = tds(ind("team")).text
-          .stripSuffixes(List(" L", " S", " MC", " (CI)", " C3", " C2",
-            " C1", "'C", " C", "T,C,L", "'T", " T", "P", "[6]", "[5]", "[4]", "[3]",
-            "[2]", "[1]", "[N 2],", " (*)", " (V)", " *", " SU", " -8", " -9", " CMC",
-            " T S", "[N 1],", " CFC", " CL", " LDC", "'T'", " (RDA)", " (CR)", " CR",
-            " T'S'", " L"))
-          .trim
+        // val team = tds(ind("team")).text
+        //   .stripSuffixes(List(" L", " S", " MC", " (CI)", " C3", " C2",
+        //     " C1", "'C", " C", "T,C,L", "'T", " T", "P", "[6]", "[5]", "[4]", "[3]",
+        //     "[2]", "[1]", "[N 2],", " (*)", " (V)", " *", " SU", " -8", " -9", " CMC",
+        //     " T S", "[N 1],", " CFC", " CL", " LDC", "'T'", " (RDA)", " (CR)", " CR",
+        //     " T'S'", " L"))
+        //   .trim
+
+        val team = tds(ind("team")).select("a[href]").first().attr("href").stripURL.decode.normalize
 
         val points = tds(ind("points")).text
           .stripSuffixes(List("-1", "-2", "A", "**", "*", "[1]"))
