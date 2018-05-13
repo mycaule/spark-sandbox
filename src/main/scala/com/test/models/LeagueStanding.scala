@@ -21,32 +21,23 @@ case class LeagueStanding(
 )
 
 object LeagueStanding {
-  def toto() = 42
-
   import helpers.Utilities._
-  def get(season: Int, league: String, url: String)(implicit logger: Logger) = {
+
+  private def extractFieldNames[T <: Product: Manifest] = {
+    implicitly[Manifest[T]].runtimeClass.getDeclaredFields.map(_.getName)
+  }
+
+  // https://stackoverflow.com/questions/1226555/case-class-to-map-in-scala
+  def mapColumns(list: List[Int]): Map[String, Int] = {
+    val cc = LeagueStanding("", 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0)
+    cc.getClass.getDeclaredFields.map(_.getName).zip(list).toMap
+  }
+
+  def fetch(season: Int, league: String, url: String)(implicit logger: Logger) = {
     val ind = if (league == "Premier League" && List(1978, 1980, 1988).contains(season))
-      Map(
-        "position" -> 0,
-        "team" -> 1,
-        "points" -> 9,
-        "won" -> 3,
-        "drawn" -> 4,
-        "lost" -> 5,
-        "goalsFor" -> 6,
-        "goalsAgainst" -> 7
-      )
+      mapColumns(List(-1, -1, 0, 1, 9, -1, 3, 4, 5, 6, 7, -1))
     else
-      Map(
-        "position" -> 0,
-        "team" -> 1,
-        "points" -> 2,
-        "won" -> 4,
-        "drawn" -> 5,
-        "lost" -> 6,
-        "goalsFor" -> 7,
-        "goalsAgainst" -> 8
-      )
+      mapColumns(List(-1, -1, 0, 1, 2, -1, 4, 5, 6, 7, 8, -1))
 
     try {
       val doc = Jsoup.connect(url).get
@@ -68,8 +59,9 @@ object LeagueStanding {
 
         val team = tds(ind("team")).text
           .stripSuffixes(List(" L", " S", " MC", " (CI)", " C3", " C2",
-            " C1", "'C", " C", "'T", " T", "P", "[1]", "[2]", "[3]", "[4]",
-            "[5]", "[6]", "[N 2],", " (*)", " (V)", " *", " SU"))
+            " C1", "'C", " C", "T,C,L", "'T", " T", "P", "[1]", "[2]", "[3]", "[4]",
+            "[5]", "[6]", "[N 2],", " (*)", " (V)", " *", " SU", " -8", " -9", " CMC",
+            " T S", "[N 1],", " CFC", " CL", " LDC"))
           .trim
 
         val points = tds(ind("points")).text

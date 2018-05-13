@@ -3,7 +3,7 @@ package spark.wiki.extracts
 
 import org.slf4j.LoggerFactory
 import org.apache.spark.sql.{ SaveMode, SparkSession }
-import models.{ LeagueStanding, LeagueInput }
+import models.{ LeagueInput, LeagueStanding }
 
 case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
   private val session: SparkSession = SparkSession.builder()
@@ -19,16 +19,10 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
     val fromYear = toYear - 40
 
     LeagueInput.getLeagues().toDS()
-      .flatMap {
-        input =>
-          (fromYear until toYear).map {
-            year =>
-              (year + 1, (input.name, input.url.format(year, year + 1)))
-          }
-      }
-      .flatMap {
-        case (season, (league, url)) => LeagueStanding.get(season, league, url)
-      }
+      .flatMap(input => (fromYear until toYear)
+        .map(year => (year + 1, input.name, input.url.format(year, year + 1)))
+      )
+      .flatMap((LeagueStanding.fetch _).tupled)
       .repartition(2)
       .write
       .mode(SaveMode.Overwrite)

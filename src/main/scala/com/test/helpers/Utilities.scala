@@ -6,5 +6,8 @@ object Utilities {
 
     def stripSuffixes(tokens: List[String]) =
       tokens.foldLeft(s)((acc, cur) => acc.stripSuffix(cur))
+
+    def removeAll(tokens: List[String]) =
+      tokens.foldLeft(s)((acc, cur) => acc.replace(cur, ""))
   }
 }

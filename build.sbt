@@ -34,7 +34,6 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= Seq(
       "org.apache.spark" %%  "spark-core" % "2.3.0",
       "org.apache.spark" %%  "spark-sql" % "2.3.0",
-      "com.databricks" %%  "spark-avro" % "4.0.0",
       "org.jsoup" %  "jsoup" % "1.11.2",
       "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-yaml" % "2.6.7",
       "org.scalatest" %%  "scalatest" % "3.0.5" % Test
