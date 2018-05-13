@@ -1,7 +1,10 @@
-package com.test.spark.wiki.extracts
+package com.test
+package spark.wiki.extracts
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
+
+import models.LeagueStanding
 
 case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
   private val session: SparkSession = SparkSession.builder().getOrCreate()
@@ -23,8 +26,7 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
 
     println("Liste de toutes les équipes distinctes")
     standings.select("league", "team")
-      .orderBy("team")
-      // .filter(col("team").startsWith("B"))
+      .orderBy("league", "team")
       .distinct.show(500)
 
     println("Nombre moyen de buts par saison et par championnat")
@@ -48,7 +50,6 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
     println("Nombre moyen de points des vainqueurs sur les 5 championnats")
     standings
       .filter(_.position == 1)
-      // .select("league", "season", "team", "position", "points")
       .orderBy("league", "season")
       .groupBy("league", "position")
       .agg(mean("points"))
@@ -61,7 +62,6 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
     standings
       .filter(x => x.position == 1 || x.position == 10)
       .withColumn("decade", dec(col("season")))
-      // .select("league", "decade", "team", "position", "points")
       .orderBy("league", "decade")
       .groupBy("league", "decade")
       .pivot("position")
