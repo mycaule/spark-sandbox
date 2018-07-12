@@ -11,7 +11,18 @@
 
 
 ### Utilisation
+Maven
 ```
+# MAVEN_OPTS="-Xss2048K"
+# Compiler le projet
+mvn compile
+# Lancer les tests unitaires
+mvn test
+```
+
+SBT
+```
+# SBT_OPTS="-Xss2048K"
 # Compiler le projet
 sbt compile
 # Lancer les tests unitaires
