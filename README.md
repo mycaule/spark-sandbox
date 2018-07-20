@@ -77,26 +77,6 @@ Voir [Intro to the Jackson ObjectMapper](http://www.baeldung.com/jackson-object-
 
 Voir [Jackson annotation examples](http://www.baeldung.com/jackson-annotations).
 
-#### Question AWS-1
-
-Cloud Formation permet de créer des ressources sur AWS par [configuration d'un fichier](https://github.com/awslabs/aws-cloudformation-templates/tree/master/aws/services/S3) (Infrastructure as Code).
-
-Voir [AWS CloudFormation / AWS::S3::Bucket](https://docs.aws.amazon.com/fr_fr/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html) pour savoir comment définir des ressources S3.
-
-Voir [Server Access Logging](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html) pour les logs d'accès.
-
-La commande suivante permet de valider le fichier (nécessite un compte actif):
-
-```
-aws cloudformation validate-template --template-body file:///home/michel/Code/spark-wiki-extracts/cfn/s3.yml
-```
-
-#### Question AWS-2
-
-Pour [protéger les données](https://aws.amazon.com/premiumsupport/knowledge-center/secure-s3-resources/https://aws.amazon.com/premiumsupport/knowledge-center/secure-s3-resources/) sur un bucket S3, il faut mettre en place des rôles et des groupes d'utilisateurs, ces groupes se connectent par le biais d'identifiants secrets.
-
-Pour se prémunir des fuites de données on veillera à auditer ces données et à utiliser les techniques cryptographiques courantes (SSL au niveau de la connexion, GPG au niveau des données, etc.).
-
 #### Faits remarquables
 
 Ces faits sont sujets à interprétation et peuvent donner des résultats alternatifs aux questions posées.
