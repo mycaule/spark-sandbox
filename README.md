@@ -11,6 +11,11 @@
 
 
 ### Utilisation
+
+```
+JVM_OPTS="-Xss2048K"
+```
+
 Maven
 ```
 # MAVEN_OPTS="-Xss2048K"
@@ -20,7 +25,7 @@ mvn compile
 mvn test
 ```
 
-SBT
+sbt
 ```
 # SBT_OPTS="-Xss2048K"
 # Compiler le projet
