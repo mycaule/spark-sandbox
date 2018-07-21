@@ -27,8 +27,37 @@ class FakerSpec extends PropSpec with PropertyChecks with Matchers {
   val integers = for (n <- Gen.choose(-1000, 1000)) yield 2 * n
 
   property("events integers") {
-    forAll(integers) { n =>
-      n % 2 shouldBe 0
-    }
+    forAll(integers)(n => n % 2 shouldBe 0)
+  }
+
+  val ints = Gen.choose(0, 100)
+
+  property("sqrt") {
+    forAll(ints)((d: Int) => math.sqrt(d * d) shouldEqual d)
+  }
+
+  property("list reverse") {
+    forAll((lst: List[Int]) => lst.reverse.reverse shouldEqual lst)
+  }
+
+  trait Tree
+  case class Node(left: Tree, right: Tree) extends Tree
+  case class Leaf(x: Int) extends Tree
+
+  def leafs: Gen[Leaf] = for {
+    x <- ints
+  } yield Leaf(x)
+
+  def nodes: Gen[Node] = for {
+    left <- trees
+    right <- trees
+  } yield Node(left, right)
+
+  def trees: Gen[Tree] = Gen.oneOf(leafs, nodes)
+
+  def options: Gen[Option[Int]] = Gen.oneOf(Some(scala.util.Random.nextInt), None)
+
+  property("options of int are positive") {
+    forAll(options, maxDiscardedFactor(0.8))(x => x.getOrElse(1) should be >= 0)
   }
 }
