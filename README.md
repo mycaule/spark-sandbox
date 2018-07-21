@@ -1,6 +1,6 @@
 
 <p align="center">
-  May 2018 SL Interview Assessment
+  Spark Sandbox
 </p>
 
 <p align="center">
@@ -41,8 +41,6 @@ sbt test
 Voir [Spark Datasets Guide - Creating Datasets](https://people.apache.org/~pwendell/spark-nightly/spark-master-docs/latest/sql-programming-guide.html#creating-datasets)
 
 #### Question 2
-
-Voir [Use selector-syntax to find elements](https://jsoup.org/cookbook/extracting-data/selector-syntax).
 
 Voir [How to add new functionality to closed classes](https://alvinalexander.com/scala/scala-for-loop-yield-examples-yield-tutorial#a-real-world-example).
 
@@ -92,8 +90,6 @@ Ces faits sont sujets à interprétation et peuvent donner des résultats altern
 - [France 2012-2013](https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2012-2013) : Ajaccio commence la saison avec 2 points de pénalités
 
 #### Remarques techniques
-
-L'utilisation de [Scala Scraper](https://github.com/ruippeixotog/scala-scraper) aurait été préférable à JSoup. Cela évite d'avoir à utiliser les types Java et permet de privilégier le type `Option` plutôt qu'`Exception`.
 
 Idem pour [Circe](https://github.com/circe/circe) plutôt que Jackson DataFormat.
 
