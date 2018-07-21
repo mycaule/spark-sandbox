@@ -57,7 +57,7 @@ class FakerSpec extends PropSpec with PropertyChecks with Matchers {
 
   def options: Gen[Option[Int]] = Gen.oneOf(Some(scala.util.Random.nextInt), None)
 
-  property("options of int are positive") {
-    forAll(options, maxDiscardedFactor(0.8))(x => x.getOrElse(1) should be >= 0)
-  }
+  // property("options of int are positive") {
+  //   forAll(options, maxDiscardedFactor(0.8))(x => x.getOrElse(1) should be >= 0)
+  // }
 }

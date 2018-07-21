@@ -21,17 +21,21 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.google.code.sbt-compiler-maven-plugin</groupId>
-        <artifactId>sbt-compiler-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.3.2</version>
         <configuration>
-          <scalaVersion>${scala-library.version}</scalaVersion>
+          <args>
+            <arg>-unchecked</arg>
+            <arg>-deprecation</arg>
+            <arg>-explaintypes</arg>
+          </args>
+          <jvmArgs>-Xss2048K</jvmArgs>
         </configuration>
         <executions>
           <execution>
-            <id>default-sbt-compile</id>
+            <phase>compile</phase>
             <goals>
-              <goal>addScalaSources</goal>
               <goal>compile</goal>
               <goal>testCompile</goal>
             </goals>
@@ -41,10 +45,26 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20.1</version>
+        <version>2.22.0</version>
         <configuration>
           <skipTests>true</skipTests>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.scalatest</groupId>
+        <artifactId>scalatest-maven-plugin</artifactId>
+        <version>1.0</version>
+        <configuration>
+          <!-- <parallel>true</parallel> -->
+        </configuration>
+        <executions>
+          <execution>
+            <id>test</id>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -91,6 +111,12 @@
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_${scala.version}</artifactId>
       <version>3.0.5</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scalacheck</groupId>
+      <artifactId>scalacheck_2.11</artifactId>
+      <version>1.13.3</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
