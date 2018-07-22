@@ -33,7 +33,7 @@ class FakerSpec extends PropSpec with PropertyChecks with Matchers {
   val ints = Gen.choose(0, 100)
 
   property("sqrt") {
-    forAll(ints)((d: Int) => math.sqrt(d * d) shouldEqual d)
+    forAll(ints)((d: Int) => math.sqrt(d.toDouble * d.toDouble) shouldEqual d)
   }
 
   property("list reverse") {

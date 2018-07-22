@@ -5,7 +5,6 @@ Spark Sandbox [![travis-badge][]][travis]
 [travis-badge]:          https://travis-ci.org/mycaule/spark-sandbox.svg?branch=master
 
 This repository is for tests and learning the framework.
-This might be converted to a [giter8](https://github.com/foundweekends/giter8) template when this is more mature.
 
 ### Usage
 
@@ -24,6 +23,9 @@ sbt test
 ```
 
 ### Roadmap
+
+- [x] Full support of Maven and sbt build tools
+- [ ] Convert to a [giter8](https://github.com/foundweekends/giter8) template
 
 - Use [Circe](https://github.com/circe/circe) instead of Jackson DataFormat.
 - Search synonyms with [Word2Vec](https://www.quora.com/What-are-good-ways-to-automatically-find-synonyms-using-machine-learning-ML-techniques-What-are-good-ways-to-automatically-find-antonyms-using-ML-techniques), [DIMSUM](https://databricks.com/blog/2014/10/20/efficient-similarity-algorithm-now-in-spark-twitter.html), or [Levenshtein distance](https://medium.com/@mrpowers/fuzzy-matching-in-spark-with-soundex-and-levenshtein-distance-6749f5af8f28) with [Spark ML](https://spark.apache.org/docs/2.2.0/mllib-feature-extraction.html#word2vec)

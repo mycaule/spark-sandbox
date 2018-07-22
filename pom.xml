@@ -26,11 +26,25 @@
         <version>3.3.2</version>
         <configuration>
           <args>
-            <arg>-unchecked</arg>
             <arg>-deprecation</arg>
-            <arg>-explaintypes</arg>
+            <arg>-feature</arg>
+            <arg>-language:existentials</arg>
+            <arg>-language:higherKinds</arg>
+            <arg>-language:implicitConversions</arg>
+            <arg>-unchecked</arg>
+            <arg>-Xlint</arg>
+            <arg>-Yno-adapted-args</arg>
+            <arg>-Ywarn-dead-code</arg>
+            <arg>-Ywarn-numeric-widen</arg>
+            <arg>-Ywarn-value-discard</arg>
+            <arg>-Xfuture</arg>
+            <arg>-Ywarn-unused-impor</arg>
           </args>
-          <jvmArgs>-Xss2048K</jvmArgs>
+          <jvmArgs>
+            <jvmArg>-Xms64m</jvmArg>
+            <jvmArg>-Xmx1024m</jvmArg>
+            <jvmArg>-Xss2048K</jvmArg>
+          </jvmArgs>
         </configuration>
         <executions>
           <execution>
@@ -55,7 +69,7 @@
         <artifactId>scalatest-maven-plugin</artifactId>
         <version>1.0</version>
         <configuration>
-          <!-- <parallel>true</parallel> -->
+            <!-- <parallel>true</parallel> -->
         </configuration>
         <executions>
           <execution>
@@ -101,10 +115,15 @@
       <artifactId>scala-scraper_2.12</artifactId>
       <version>2.1.0</version>
     </dependency>
-    <dependency>
+    <dependency> <!-- FIXME Deprecated -->
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-yaml</artifactId>
       <version>2.6.7</version>
+    </dependency>
+    <dependency>
+      <groupId>io.circe</groupId>
+      <artifactId>circe-yaml_2.12</artifactId>
+      <version>0.8.0</version>
     </dependency>
     <!-- test -->
     <dependency>

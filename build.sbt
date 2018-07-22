@@ -36,7 +36,8 @@ lazy val root = (project in file(".")).
       "org.apache.spark" %%  "spark-sql" % "2.3.1",
       "org.jsoup" %  "jsoup" % "1.11.2", // FIXME Deprecated
       "net.ruippeixotog" %% "scala-scraper" % "2.1.0",
-      "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-yaml" % "2.6.7",
+      "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-yaml" % "2.6.7", // FIXME Deprecated
+      "io.circe" %% "circe-yaml" % "0.8.0",
       "org.scalatest" %%  "scalatest" % "3.0.5" % Test,
       "com.chuusai" %% "shapeless" % "2.3.3",
       "org.scalacheck" %% "scalacheck" % "1.14.0" % Test
