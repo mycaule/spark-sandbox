@@ -1,4 +1,5 @@
-package com.sandbox.helpers
+package com.sandbox
+package helpers
 
 import java.text.Normalizer
 import java.net.URLDecoder

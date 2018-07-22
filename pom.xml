@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.mycaule</groupId>
-  <artifactId>spark-wiki-extracts</artifactId>
+  <groupId>com.sandbox</groupId>
+  <artifactId>spark-sandbox</artifactId>
   <version>0.5.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -38,7 +38,7 @@
             <arg>-Ywarn-numeric-widen</arg>
             <arg>-Ywarn-value-discard</arg>
             <arg>-Xfuture</arg>
-            <arg>-Ywarn-unused-impor</arg>
+       <!-- <arg>-Ywarn-unused-impor</arg> -->
           </args>
           <jvmArgs>
             <jvmArg>-Xms64m</jvmArg>
@@ -69,7 +69,7 @@
         <artifactId>scalatest-maven-plugin</artifactId>
         <version>1.0</version>
         <configuration>
-            <!-- <parallel>true</parallel> -->
+   <!-- <parallel>true</parallel> -->
         </configuration>
         <executions>
           <execution>
@@ -83,12 +83,13 @@
     </plugins>
   </build>
   <dependencies>
+<!-- Scala -->
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
       <version>${scala-library.version}</version>
     </dependency>
-    <!-- spark -->
+<!-- Parallel processing -->
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_${scala.version}</artifactId>
@@ -99,7 +100,7 @@
       <artifactId>spark-sql_${scala.version}</artifactId>
       <version>${spark.version}</version>
     </dependency>
-    <!-- utils -->
+<!-- Data parsing -->
     <dependency>
       <groupId>com.chuusai</groupId>
       <artifactId>shapeless_2.11</artifactId>
@@ -115,17 +116,17 @@
       <artifactId>scala-scraper_2.12</artifactId>
       <version>2.1.0</version>
     </dependency>
-    <dependency> <!-- FIXME Deprecated -->
-      <groupId>com.fasterxml.jackson.dataformat</groupId>
-      <artifactId>jackson-dataformat-yaml</artifactId>
-      <version>2.6.7</version>
+    <dependency>
+      <groupId>io.circe</groupId>
+      <artifactId>circe-generic_2.12</artifactId>
+      <version>0.9.3</version>
     </dependency>
     <dependency>
       <groupId>io.circe</groupId>
       <artifactId>circe-yaml_2.12</artifactId>
       <version>0.8.0</version>
     </dependency>
-    <!-- test -->
+<!-- Test runner -->
     <dependency>
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_${scala.version}</artifactId>

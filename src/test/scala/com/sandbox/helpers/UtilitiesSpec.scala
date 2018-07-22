@@ -1,4 +1,5 @@
-package com.sandbox.helpers
+package com.sandbox
+package helpers
 
 import org.scalatest._
 import Utilities._

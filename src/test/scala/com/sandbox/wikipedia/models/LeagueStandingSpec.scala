@@ -1,4 +1,6 @@
-package com.sandbox.models
+package com.sandbox
+package wikipedia
+package models
 
 import org.scalatest._
 import org.slf4j.LoggerFactory

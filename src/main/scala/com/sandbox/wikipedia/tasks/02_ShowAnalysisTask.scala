@@ -1,19 +1,20 @@
 package com.sandbox
-package spark.wiki.extracts
+package wikipedia
+package tasks
 
-import org.apache.spark.sql.SparkSession
+import org.slf4j.{ LoggerFactory, Logger }
 import org.apache.spark.sql.functions._
 
+import com.sandbox.models.{ LocalStorage, Context }
 import models.LeagueStanding
 
-case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
-  private val session: SparkSession = SparkSession.builder().getOrCreate()
-
-  import session.implicits._
+case class ShowAnalysisTask(input: LocalStorage)(implicit context: Context) extends Runnable {
+  import context.session.implicits._
+  implicit private val logger: Logger = LoggerFactory.getLogger(getClass)
 
   override def run(): Unit = {
-    val standings = session.read.parquet(bucket).as[LeagueStanding].cache()
-    val teams = session.read.format("csv")
+    val standings = context.session.read.parquet(input.path).as[LeagueStanding].cache()
+    val teams = context.session.read.format("csv")
       .option("header", "true")
       .option("inferSchema", "true")
       .load("src/main/resources/teams.csv")
@@ -42,7 +43,7 @@ case class Q2_ShowLeagueStatsTask(bucket: String) extends Runnable {
 
     println("Nombre moyen de buts par saison et par championnat")
     standings.createTempView("standingsSQL")
-    session.sql("""
+    context.session.sql("""
       SELECT league, season, round(mean(goalsFor),1) meanGoals
       FROM standingsSQL
       GROUP BY league, season

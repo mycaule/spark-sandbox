@@ -4,7 +4,7 @@ Spark Sandbox [![travis-badge][]][travis]
 [travis]:                https://travis-ci.org/mycaule/spark-sandbox
 [travis-badge]:          https://travis-ci.org/mycaule/spark-sandbox.svg?branch=master
 
-This repository is for tests and learning the framework.
+This repository is for tests and learning the Spark and Scalatest frameworks.
 
 ### Usage
 
@@ -22,9 +22,18 @@ sbt compile
 sbt test
 ```
 
+Running the tasks
+```
+sbt:spark-sandbox> test:compile
+sbt:spark-sandbox> testOnly com.sandbox.tasks.wikipedia.RunTasks
+```
+
 ### Roadmap
 
 - [x] Full support of Maven and sbt build tools
+- [ ] Move tasks to specific folder and run them with [scalatest runner](http://www.scalatest.org/user_guide/using_the_runner) (command line script? as integrations tests?)
+- [ ] Provide better scalatest report
+- [ ] Low level scheduling with [Quartz Scheduler](https://github.com/enragedginger/akka-quartz-scheduler)
 - [ ] Convert to a [giter8](https://github.com/foundweekends/giter8) template
 
 - Use [Circe](https://github.com/circe/circe) instead of Jackson DataFormat.

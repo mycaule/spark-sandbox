@@ -1,4 +1,5 @@
 package com.sandbox
+package wikipedia
 package models
 
 import org.slf4j.Logger

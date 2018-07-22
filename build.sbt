@@ -26,17 +26,17 @@ scalacOptions ++= Seq(
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
-      organization := "com.mycaule",
+      organization := "com.sandbox",
       scalaVersion := "2.11.12",
       version      := "0.5.0-SNAPSHOT"
     )),
-    name := "Spark Sandbox",
+    name := "spark-sandbox",
     libraryDependencies ++= Seq(
       "org.apache.spark" %%  "spark-core" % "2.3.1",
       "org.apache.spark" %%  "spark-sql" % "2.3.1",
       "org.jsoup" %  "jsoup" % "1.11.2", // FIXME Deprecated
       "net.ruippeixotog" %% "scala-scraper" % "2.1.0",
-      "com.fasterxml.jackson.dataformat" %  "jackson-dataformat-yaml" % "2.6.7", // FIXME Deprecated
+      "io.circe" %% "circe-generic" % "0.9.3",
       "io.circe" %% "circe-yaml" % "0.8.0",
       "org.scalatest" %%  "scalatest" % "3.0.5" % Test,
       "com.chuusai" %% "shapeless" % "2.3.3",

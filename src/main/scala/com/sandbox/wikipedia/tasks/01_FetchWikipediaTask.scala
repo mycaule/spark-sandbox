@@ -1,18 +1,15 @@
 package com.sandbox
-package spark.wiki.extracts
+package wikipedia
+package tasks
 
-import org.slf4j.LoggerFactory
-import org.apache.spark.sql.{ SaveMode, SparkSession }
+import org.slf4j.{ LoggerFactory, Logger }
+import org.apache.spark.sql.SaveMode
+import com.sandbox.models.{ LocalStorage, Context }
 import models.{ LeagueInput, LeagueStanding }
 
-case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
-  private val session: SparkSession = SparkSession.builder()
-    .appName("Wiki Documents")
-    .getOrCreate()
-
-  implicit private val logger = LoggerFactory.getLogger(getClass)
-
-  import session.implicits._
+case class FetchWikipediaTask(output: LocalStorage)(implicit context: Context) extends Runnable {
+  import context.session.implicits._
+  implicit private val logger: Logger = LoggerFactory.getLogger(getClass)
 
   override def run(): Unit = {
     val toYear = 2017
@@ -26,6 +23,6 @@ case class Q1_WikiDocumentsToParquetTask(bucket: String) extends Runnable {
       .repartition(2)
       .write
       .mode(SaveMode.Overwrite)
-      .parquet(bucket)
+      .parquet(output.path)
   }
 }
