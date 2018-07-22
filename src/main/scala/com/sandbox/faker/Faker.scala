@@ -4,6 +4,8 @@ package faker
 import shapeless.{ HList, HNil, _ }
 import scala.util.Random
 
+import com.twitter.bijection._
+
 object RandomUtils {
   val loremWords = List("lorem", "ipsum", "dolor", "sit", "amet", "consectetur",
     "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut",
@@ -75,6 +77,9 @@ object Faker {
 
   implicit def arrGen[A: scala.reflect.ClassTag](implicit gen: Faker[A]) = new Faker[Array[A]] {
     override def generate = Array.fill[A](SEQ_SIZE)(gen.generate)
+
+    // For array of bytes, you may consider Bijection[String, Array[Byte]]
+    // https://github.com/twitter/bijection
   }
 
   implicit def mapGen[A, B](implicit genA: Faker[A], genB: Faker[B]) = new Faker[Map[A, B]] {

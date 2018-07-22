@@ -44,6 +44,7 @@ lazy val root = (project in file(".")).
       "io.circe" %% "circe-yaml" % "0.8.0",
       "org.scalatest" %%  "scalatest" % "3.0.5" % Test,
       "org.scalacheck" %% "scalacheck" % "1.14.0" % Test,
-      "com.chuusai" %% "shapeless" % "2.3.3"
+      "com.chuusai" %% "shapeless" % "2.3.3",
+      "com.twitter" %% "bijection-core" % "0.9.6"
     )
   )
