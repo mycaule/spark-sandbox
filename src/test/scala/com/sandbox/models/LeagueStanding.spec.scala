@@ -1,4 +1,4 @@
-package com.test.models
+package com.sandbox.models
 
 import org.scalatest._
 import org.slf4j.LoggerFactory

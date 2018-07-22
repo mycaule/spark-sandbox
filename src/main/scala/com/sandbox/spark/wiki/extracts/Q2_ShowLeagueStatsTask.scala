@@ -1,4 +1,4 @@
-package com.test
+package com.sandbox
 package spark.wiki.extracts
 
 import org.apache.spark.sql.SparkSession

@@ -1,4 +1,4 @@
-package com.test.faker
+package com.sandbox.faker
 
 import shapeless.{ HList, HNil, _ }
 import scala.util.Random

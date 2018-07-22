@@ -2,9 +2,9 @@ import sbt._
 import scalariform.formatter.preferences._
 
 scalariformPreferences := scalariformPreferences.value
-    .setPreference(AlignSingleLineCaseStatements, true)
-    .setPreference(DoubleIndentConstructorArguments, true)
-    .setPreference(DanglingCloseParenthesis, Preserve)
+  .setPreference(AlignSingleLineCaseStatements, true)
+  .setPreference(DoubleIndentConstructorArguments, true)
+  .setPreference(DanglingCloseParenthesis, Preserve)
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -30,7 +30,7 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.11.12",
       version      := "0.5.0-SNAPSHOT"
     )),
-    name := "Assessment",
+    name := "Spark Sandbox",
     libraryDependencies ++= Seq(
       "org.apache.spark" %%  "spark-core" % "2.3.1",
       "org.apache.spark" %%  "spark-sql" % "2.3.1",

@@ -1,4 +1,4 @@
-package com.test
+package com.sandbox
 package models
 
 import java.sql.Timestamp

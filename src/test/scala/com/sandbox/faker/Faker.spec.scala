@@ -1,4 +1,4 @@
-package com.test.faker
+package com.sandbox.faker
 
 import org.scalatest._
 import org.scalatest.prop.PropertyChecks

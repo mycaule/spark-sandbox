@@ -1,4 +1,4 @@
-package com.test.spark.wiki.extracts
+package com.sandbox.spark.wiki.extracts
 
 import org.apache.spark.sql.SparkSession
 import org.scalatest.{ BeforeAndAfterEach, FunSuite }

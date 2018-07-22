@@ -1,4 +1,4 @@
-package com.test
+package com.sandbox
 package spark.wiki.extracts
 
 import org.slf4j.LoggerFactory
