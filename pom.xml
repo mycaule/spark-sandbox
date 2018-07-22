@@ -88,7 +88,7 @@
     <!-- utils -->
     <dependency>
       <groupId>com.chuusai</groupId>
-      <artifactId>shapeless_2.12</artifactId>
+      <artifactId>shapeless_2.11</artifactId>
       <version>2.3.3</version>
     </dependency>
     <dependency> <!-- FIXME Deprecated -->

@@ -9,10 +9,6 @@ This might be converted to a [giter8](https://github.com/foundweekends/giter8) t
 
 ### Usage
 
-```
-JVM_OPTS="-Xss2048K"
-```
-
 Maven
 ```
 # MAVEN_OPTS="-Xss2048K"
