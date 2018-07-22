@@ -2,32 +2,39 @@ package com.sandbox
 package runner
 
 import org.scalatest._
+import tagobjects.Retryable
+
 import com.sandbox.models.{ LocalStorage, Context }
 
-class RunTasks extends FunSpec with BeforeAndAfterEach {
+class RunTasks extends FlatSpec with BeforeAndAfterEach with Retries {
   implicit var context = Context(Context.getOrCreateSession())
 
-  override protected def beforeEach() = {
+  override def beforeEach() = {
     context = Context(Context.getOrCreateSession())
   }
 
-  override protected def afterEach() = {
+  override def afterEach() = {
     context.session.close()
   }
 
-  describe("League standings from Wikipedia") {
-    import wikipedia.tasks.{ FetchWikipediaTask, ShowAnalysisTask }
-    val storage = LocalStorage("/tmp/wiki-data")
+  override def withFixture(test: NoArgTest) = {
+    if (isRetryable(test))
+      withRetry { super.withFixture(test) }
+    else
+      super.withFixture(test)
+  }
 
-    it("fetches Wikipedia pages") {
-      FetchWikipediaTask(output = storage).run()
-      // Make checks here
-    }
+  import wikipedia.tasks.{ FetchWikipediaTask, ShowAnalysisTask }
+  val storage = LocalStorage("/tmp/wiki-data")
 
-    it("shows summary analysis") {
-      ShowAnalysisTask(input = storage).run()
-      // Make checks here
-    }
+  "League standings" should "fetch Wikipedia pages" taggedAs (Retryable) in {
+    FetchWikipediaTask(output = storage).run()
+    // Make checks here
+  }
+
+  it should "show summary analysis" in {
+    ShowAnalysisTask(input = storage).run()
+    // Make checks here
   }
 
 }

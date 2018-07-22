@@ -25,7 +25,9 @@ sbt test
 Running the tasks
 ```
 sbt:spark-sandbox> test:compile
-sbt:spark-sandbox> testOnly com.sandbox.tasks.wikipedia.RunTasks
+sbt:spark-sandbox> testOnly com.sandbox.runner.RunTasks
+# or
+scala> (new RunTasks).execute()
 ```
 
 ### Roadmap

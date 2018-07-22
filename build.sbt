@@ -24,6 +24,7 @@ scalacOptions ++= Seq(
 )
 
 lazy val root = (project in file(".")).
+  enablePlugins(BuildInfoPlugin).
   settings(
     inThisBuild(List(
       organization := "com.sandbox",
@@ -31,6 +32,9 @@ lazy val root = (project in file(".")).
       version      := "0.5.0-SNAPSHOT"
     )),
     name := "spark-sandbox",
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+    buildInfoPackage := "com.sandbox",
+    buildInfoOptions += BuildInfoOption.BuildTime,
     libraryDependencies ++= Seq(
       "org.apache.spark" %%  "spark-core" % "2.3.1",
       "org.apache.spark" %%  "spark-sql" % "2.3.1",
@@ -39,8 +43,7 @@ lazy val root = (project in file(".")).
       "io.circe" %% "circe-generic" % "0.9.3",
       "io.circe" %% "circe-yaml" % "0.8.0",
       "org.scalatest" %%  "scalatest" % "3.0.5" % Test,
-      "com.chuusai" %% "shapeless" % "2.3.3",
-      "org.scalacheck" %% "scalacheck" % "1.14.0" % Test
-    ),
-    resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+      "org.scalacheck" %% "scalacheck" % "1.14.0" % Test,
+      "com.chuusai" %% "shapeless" % "2.3.3"
+    )
   )
